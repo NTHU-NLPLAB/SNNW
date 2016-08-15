@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import requests
 import urllib
 import bs4
@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello():
-    return "Hello World!"
+def index():
+    return render_template("index.html")
 
 
 @app.route("/linggle/<query>")

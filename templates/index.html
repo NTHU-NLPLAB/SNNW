@@ -1,0 +1,52 @@
+<input type="text" value="" id="input">
+<button id="send_btn">send</button>
+<div id="linggle_results"></div>
+<div id="wirteahead_results"></div>
+
+<script>
+    var send_btn = document.getElementById("send_btn");
+    var input = document.getElementById("input")
+    var linggle_results = document.getElementById("linggle_results")
+    var wirteahead_results = document.getElementById("wirteahead_results")
+
+    send_btn.onclick = function() {
+
+        var linggle = new XMLHttpRequest();
+        linggle.onreadystatechange = function() {
+            if (linggle.readyState === 4) {
+
+                if (linggle.status === 200) {
+                    console.log(linggle.responseText);
+                    linggle_results.innerHTML = linggle.responseText;
+                } else {
+                    console.log('An error occurred during your linggle: ' + linggle.status + ' ' + linggle.statusText);
+                }
+            }
+
+
+        }
+        linggle.open('GET', '/writeahead/' + input.value, true);
+        linggle.send()
+
+        var writeahead = new XMLHttpRequest();
+        writeahead.onreadystatechange = function() {
+            if (writeahead.readyState === 4) {
+
+                if (writeahead.status === 200) {
+                    console.log(writeahead.responseText);
+                    wirteahead_results.innerHTML = writeahead.responseText;
+                } else {
+                    console.log('An error occurred during your linggle: ' + linggle.status + ' ' + linggle.statusText);
+                }
+            }
+
+
+        }
+        writeahead.open('GET', '/linggle/' + input.value, true);
+        writeahead.send()
+
+
+
+
+    };
+</script>
