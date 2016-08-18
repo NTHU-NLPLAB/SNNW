@@ -1,23 +1,68 @@
 <input type="text" value="" id="input">
 <button id="send_btn">send</button>
-<div id="linggle_results"></div>
+<!-- <div id="linggle_results"></div> -->
+<table id="linggle_results" cellspacing="0" cellpadding="0">
+  <tbody>
+  </tbody>
+</table>
 <div id="wirteahead_results"></div>
 
 <script>
     var send_btn = document.getElementById("send_btn");
     var input = document.getElementById("input")
     var linggle_results = document.getElementById("linggle_results")
+    linggle_results = linggle_results.firstElementChild
     var wirteahead_results = document.getElementById("wirteahead_results")
+    linggle_regex = /_|~|#\d+|\?|\*|\/|(v|n|adj|adv|prep|det|conj|pron|interj)\./
 
     send_btn.onclick = function() {
+        query = input.value;
+        // words = query.trim().split(' ')
+        test = query.match(linggle_regex)
+        if(test) {
+            search_linggle(query);
+        } else {
+            search_writeahead(query);
+        }
+    };
 
+    function renderSearchResult(data) {
+        var html = '<tr><td>No result</td></tr>';
+        if (data.length !== 0) {
+            html = '';
+            data.forEach(function(element) {
+                html +=
+                    '<tr>' +
+                    '<td>' + element.phrase.join(' ') +
+                    '<div class="ui bottom red attached progress" data-percent="' + /[0-9]+/g.exec(element.percent)[0] + '">' +
+                    '<div class="bar"></div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' + element.percent + '</td>' +
+                    '<td>' + element.count_str + '</td>' +
+                    //'<td class="center aligned">' +
+                    //'<button class="ui icon button">' +
+                    //'<i class="icon plus"></i>' +
+                    //'</button>' +
+                    //'</td>' +
+                    '</tr>';
+            });
+        }
+        return html;
+    };
+
+    function search_linggle(query) {
         var linggle = new XMLHttpRequest();
         linggle.onreadystatechange = function() {
             if (linggle.readyState === 4) {
 
                 if (linggle.status === 200) {
-                    console.log(linggle.responseText);
-                    linggle_results.innerHTML = linggle.responseText;
+                    console.log(linggle.response);
+                    // results = eval('(' + linggle.response + ')');
+                    results = JSON.parse(eval(linggle.response));
+
+
+                    linggle_results.innerHTML = renderSearchResult(results);
                 } else {
                     console.log('An error occurred during your linggle: ' + linggle.status + ' ' + linggle.statusText);
                 }
@@ -25,9 +70,12 @@
 
 
         }
-        linggle.open('GET', '/writeahead/' + input.value, true);
-        linggle.send()
+        linggle.open('GET', '/linggle/' + query, true);
+        linggle.send();
+    }
 
+
+    function search_writeahead(query) {
         var writeahead = new XMLHttpRequest();
         writeahead.onreadystatechange = function() {
             if (writeahead.readyState === 4) {
@@ -42,11 +90,7 @@
 
 
         }
-        writeahead.open('GET', '/linggle/' + input.value, true);
-        writeahead.send()
-
-
-
-
-    };
+        writeahead.open('GET', '/writeahead/' + query, true);
+        writeahead.send();
+    }
 </script>

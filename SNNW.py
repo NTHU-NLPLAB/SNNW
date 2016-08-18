@@ -19,7 +19,7 @@ def linggleit(query):
 
 @app.route("/writeahead/<query>")
 def writeaheadit(query):
-    url ='http://www.writeahead.org/add?text={}'.format(urllib.quote(query, safe=''))
+    url = 'http://www.writeahead.org/add?text={}'.format(urllib.quote(query, safe=''))
     r = requests.get(url)
     soup = bs4.BeautifulSoup(r.text, "html.parser")
     grammarPatternBlock = soup.find('div', {'id': 'gp_block'}).decode()
