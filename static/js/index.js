@@ -5,6 +5,8 @@ var wirteahead_results = document.getElementById("wirteahead_results")
 var linggle_results = document.getElementById("linggle_results")
 var rephraser_results = document.getElementById("rephraser_results")
 var last_request = {}
+var current_query = ''
+var timeoutId = '';
 linggle_regex = /_|~|#\d+|\?|\*|\/|(v|n|adj|adv|prep|det|conj|pron|interj)\./
 
   // send_btn.onclick = function() {
@@ -12,15 +14,23 @@ linggle_regex = /_|~|#\d+|\?|\*|\/|(v|n|adj|adv|prep|det|conj|pron|interj)\./
   // };
 
 $('#input').on('input', function() {
-    var query = this.value;
-    if (query !== '') {
+    var query = this.value.trim();
+    if (query !== '' && query !== current_query) {
         $('#search_bar').addClass("loading");
-        search(query);
+        current_query = query
+        resetAutoSearchTimer(800);
+        // search(query);
     }
 });
 
-function search(query) {
-    test = query.match(linggle_regex)
+function resetAutoSearchTimer(ms) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(search, ms);
+};
+
+function search() {
+    query = current_query;
+    test = query.match(linggle_regex);
     // abort pending request
     // if (last_request) {
     //   last_request.abort();
