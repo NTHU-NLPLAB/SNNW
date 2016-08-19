@@ -7,13 +7,14 @@ var rephraser_results = document.getElementById("rephraser_results")
 var last_request = {}
 linggle_regex = /_|~|#\d+|\?|\*|\/|(v|n|adj|adv|prep|det|conj|pron|interj)\./
 
-send_btn.onclick = function() {
-    search(input.value)
-};
+  // send_btn.onclick = function() {
+  //     search(input.value)
+  // };
 
 $('#input').on('input', function() {
     var query = this.value;
     if (query !== '') {
+        $('#search_bar').addClass("loading");
         search(query);
     }
 });
@@ -40,6 +41,7 @@ function search_linggle(query) {
         if (this != last_request['linggle']) {
           return;
         }
+        $('#search_bar').removeClass("loading");
         if (this.readyState === 4) {
 
             if (this.status === 200) {
@@ -48,6 +50,7 @@ function search_linggle(query) {
                 results = JSON.parse(this.response);
 
                 linggle_results.innerHTML = renderLinggleResult(results);
+                $('.ui.bottom.red.attached.progress').progress();
             } else {
                 console.log('An error occurred during your linggle: ' + this.status + ' ' + this.statusText);
             }
@@ -67,6 +70,7 @@ function search_writeahead(query) {
         if (this != last_request['writeahead']) {
           return;
         }
+        $('#search_bar').removeClass("loading");
         if (this.readyState === 4) {
 
             if (this.status === 200) {
@@ -91,6 +95,8 @@ function search_rephraser(query) {
         if (this != last_request['rephraser']) {
           return;
         }
+        $('#search_bar').removeClass("loading");
+        $('#rephraser_area').removeClass("loading");
         if (this.readyState === 4) {
 
             if (this.status === 200) {
@@ -108,6 +114,7 @@ function search_rephraser(query) {
     }
     rephraser.open('GET', '/rephraser/' + query, true);
     rephraser.send();
+    $('#rephraser_area').addClass("loading");
     return rephraser;
 }
 

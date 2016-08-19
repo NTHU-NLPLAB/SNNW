@@ -29,50 +29,63 @@
 
 </head>
 <body>
-  <!-- <input type="text" value="" id="input"> -->
-  <!-- <button id="send_btn">send</button> -->
-  <div class="ui action fluid icon input">
-      <input id="input" class="prompt" type="text" id="search-bar">
-      <i class="remove icon"></i>
-      <button id="send_btn" class="ui blue icon button" id="bookmark-btn">
+  <div class="ui container  ">
+    <!-- <input type="text" value="" id="input"> -->
+    <!-- <button id="send_btn">send</button> -->
+    <h2 class="ui center aligned icon header">
+      <i class="circular book icon"></i>
+      Sa-Niau-Niou-Wan
+    </h2>
+    <div class="ui centered stackable grid">
+      <div class="ten wide column item">
+      <div class="ui fluid right icon input" id="search_bar">
           <i class="search icon"></i>
-      </button>
-      <button class="ui red icon button" id="delete-btn">
-          <i class="delete icon"></i>
-      </button>
-  </div>
-  <div id="result_area" class="ui active fade reveal">
-    <div id="wr_results" class="hidden content ui grid">
-      <div id="wirteahead_area" class="eight wide column centered">
-        <div class="ui red segment">WriteAhead</div>
-        <div id="wirteahead_results"></div>
+          <input id="input" class="prompt" type="text" placeholder="Type something here...">
+          <!-- <button id="send_btn" class="ui blue icon button">
+              <i class="search icon"></i>
+              <span>&nbsp;Search</span>
+          </button> -->
+          <!-- <button class="ui red icon button" id="delete-btn">
+              <i class="delete icon"></i>
+          </button> -->
       </div>
-      <div id="rephraser_area" class="eight wide column centered">
-        <table id="rephraser_area" cellspacing="0" cellpadding="0" class="ui very compact large grey selectable unstackable table">
-          <thead>
-              <tr>
-                  <th class="ten wide">paraphrase</th>
-                  <th class="two wide">percent</th>
-                  <th class="two wide">count</th>
-              </tr>
-          </thead>
-          <tbody id="rephraser_results"></tbody>
-        </table>
       </div>
     </div>
+    <div id="result_area" class="ui active fade reveal">
+      <div id="wr_results" class="hidden content ui padded grid">
+        <div id="wirteahead_area" class="eight wide column centered">
+          <i class="icon"></i>
+          <div class="ui red segment">WriteAhead</div>
+          <div id="wirteahead_results"></div>
+        </div>
+        <div id="rephraser_area" class="eight wide column centered">
+          <i class="icon"></i>
+          <table id="rephraser_area" cellspacing="0" cellpadding="0" class="ui very compact large grey selectable unstackable table">
+            <thead>
+                <tr>
+                    <th class="ten wide">paraphrase</th>
+                    <th class="two wide">percent</th>
+                    <th class="two wide">count</th>
+                </tr>
+            </thead>
+            <tbody id="rephraser_results"></tbody>
+          </table>
+        </div>
+      </div>
 
-    <div id="l_results" class="visible content">
-      <table id="linggle_area" cellspacing="0" cellpadding="0" class="ui very compact large orange selectable unstackable table">
-        <thead>
-            <tr>
-                <th class="ten wide">N-gram</th>
-                <th class="one wide">percent</th>
-                <th class="one wide">count</th>
-                <th class="one wide">example</th>
-            </tr>
-        </thead>
-        <tbody id="linggle_results"></tbody>
-      </table>
+      <div id="l_results" class="visible content ui grid">
+        <table id="linggle_area" cellspacing="0" cellpadding="0" class="ui very compact large orange selectable unstackable table">
+          <thead>
+              <tr>
+                  <th class="ten wide">N-gram</th>
+                  <th class="one wide">percent</th>
+                  <th class="one wide">count</th>
+                  <th class="one wide">example</th>
+              </tr>
+          </thead>
+          <tbody id="linggle_results"></tbody>
+        </table>
+      </div>
     </div>
   </div>
   <!-- js  -->
