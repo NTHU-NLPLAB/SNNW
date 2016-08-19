@@ -41,20 +41,39 @@
           <i class="delete icon"></i>
       </button>
   </div>
-  <div class="ui active fade reveal">
-    <div id="wirteahead_results" class="hidden content"></div>
-    <!-- <div id="linggle_results"></div> -->
-    <table id="linggle_area" cellspacing="0" cellpadding="0" class="ui very compact large orange selectable unstackable table visible content">
-      <thead>
-          <tr>
-              <th class="ten wide">N-gram</th>
-              <th class="one wide">percent</th>
-              <th class="one wide">count</th>
-              <th class="one wide">example</th>
-          </tr>
-      </thead>
-      <tbody id="linggle_results"></tbody>
-    </table>
+  <div id="result_area" class="ui active fade reveal">
+    <div id="wr_results" class="hidden content ui grid">
+      <div id="wirteahead_area" class="eight wide column centered">
+        <div class="ui red segment">WriteAhead</div>
+        <div id="wirteahead_results"></div>
+      </div>
+      <div id="rephraser_area" class="eight wide column centered">
+        <table id="rephraser_area" cellspacing="0" cellpadding="0" class="ui very compact large grey selectable unstackable table">
+          <thead>
+              <tr>
+                  <th class="ten wide">paraphrase</th>
+                  <th class="two wide">percent</th>
+                  <th class="two wide">count</th>
+              </tr>
+          </thead>
+          <tbody id="rephraser_results"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="l_results" class="visible content">
+      <table id="linggle_area" cellspacing="0" cellpadding="0" class="ui very compact large orange selectable unstackable table">
+        <thead>
+            <tr>
+                <th class="ten wide">N-gram</th>
+                <th class="one wide">percent</th>
+                <th class="one wide">count</th>
+                <th class="one wide">example</th>
+            </tr>
+        </thead>
+        <tbody id="linggle_results"></tbody>
+      </table>
+    </div>
   </div>
   <!-- js  -->
   <script src="/static/js/common.js"></script>
