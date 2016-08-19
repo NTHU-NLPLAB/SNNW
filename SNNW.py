@@ -29,15 +29,16 @@ def writeaheadit(query):
     return grammarPatternBlock
 
 
-@app.route("/writeaheadd/<query>")
-def writeahead(query):
-    text = request.args['text'].lower().encode('utf8').translate(string.maketrans("",""), string.punctuation).strip().split()
-    r = requests.get(url)
-    return r.text
+# @app.route("/writeaheadd/<query>")
+# def writeahead(query):
+#     text = request.args['text'].lower().encode('utf8').translate(string.maketrans("",""), string.punctuation).strip().split()
+#     r = requests.get(url)
+#     return r.text
 
 
 @app.route("/rephraser/<query>")
 def rephraseit(query):
+    query = ' '.join(query.split()[-4:])
     url = 'http://ironman.nlpweb.org:13142/get_paraphrases/{}'.format(urllib.quote(query, safe=''))
     r = requests.get(url)
     return jsonify(r.json())
