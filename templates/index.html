@@ -1,96 +1,63 @@
-<input type="text" value="" id="input">
-<button id="send_btn">send</button>
-<!-- <div id="linggle_results"></div> -->
-<table id="linggle_results" cellspacing="0" cellpadding="0">
-  <tbody>
-  </tbody>
-</table>
-<div id="wirteahead_results"></div>
+<!DOCTYPE HTML>
+<html>
 
-<script>
-    var send_btn = document.getElementById("send_btn");
-    var input = document.getElementById("input")
-    var linggle_results = document.getElementById("linggle_results")
-    linggle_results = linggle_results.firstElementChild
-    var wirteahead_results = document.getElementById("wirteahead_results")
-    linggle_regex = /_|~|#\d+|\?|\*|\/|(v|n|adj|adv|prep|det|conj|pron|interj)\./
+<head>
+    <!-- coding : utf-8 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    send_btn.onclick = function() {
-        query = input.value;
-        // words = query.trim().split(' ')
-        test = query.match(linggle_regex)
-        if(test) {
-            search_linggle(query);
-        } else {
-            search_writeahead(query);
-        }
-    };
+    <!-- cache : off -->
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
 
-    function renderSearchResult(data) {
-        var html = '<tr><td>No result</td></tr>';
-        if (data.length !== 0) {
-            html = '';
-            data.forEach(function(element) {
-                html +=
-                    '<tr>' +
-                    '<td>' + element.phrase.join(' ') +
-                    '<div class="ui bottom red attached progress" data-percent="' + /[0-9]+/g.exec(element.percent)[0] + '">' +
-                    '<div class="bar"></div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td>' + element.percent + '</td>' +
-                    '<td>' + element.count_str + '</td>' +
-                    //'<td class="center aligned">' +
-                    //'<button class="ui icon button">' +
-                    //'<i class="icon plus"></i>' +
-                    //'</button>' +
-                    //'</td>' +
-                    '</tr>';
-            });
-        }
-        return html;
-    };
+    <!-- Lastest IE version -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    function search_linggle(query) {
-        var linggle = new XMLHttpRequest();
-        linggle.onreadystatechange = function() {
-            if (linggle.readyState === 4) {
+    <!-- Page title -->
+    <title>Sa-Niau-Niou-Wan</title>
 
-                if (linggle.status === 200) {
-                    console.log(linggle.response);
-                    // results = eval('(' + linggle.response + ')');
-                    results = JSON.parse(eval(linggle.response));
+    <meta name=“description” content="Sa-Niau-Niou-Wan">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css" />
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+    <link rel="shortcut icon" href="static/img/favicon.png" />
 
 
-                    linggle_results.innerHTML = renderSearchResult(results);
-                } else {
-                    console.log('An error occurred during your linggle: ' + linggle.status + ' ' + linggle.statusText);
-                }
-            }
-
-
-        }
-        linggle.open('GET', '/linggle/' + query, true);
-        linggle.send();
-    }
-
-
-    function search_writeahead(query) {
-        var writeahead = new XMLHttpRequest();
-        writeahead.onreadystatechange = function() {
-            if (writeahead.readyState === 4) {
-
-                if (writeahead.status === 200) {
-                    console.log(writeahead.responseText);
-                    wirteahead_results.innerHTML = writeahead.responseText;
-                } else {
-                    console.log('An error occurred during your linggle: ' + linggle.status + ' ' + linggle.statusText);
-                }
-            }
-
-
-        }
-        writeahead.open('GET', '/writeahead/' + query, true);
-        writeahead.send();
-    }
-</script>
+</head>
+<body>
+  <!-- <input type="text" value="" id="input"> -->
+  <!-- <button id="send_btn">send</button> -->
+  <div class="ui action fluid icon input">
+      <input id="input" class="prompt" type="text" id="search-bar">
+      <i class="remove icon"></i>
+      <button id="send_btn" class="ui blue icon button" id="bookmark-btn">
+          <i class="search icon"></i>
+      </button>
+      <button class="ui red icon button" id="delete-btn">
+          <i class="delete icon"></i>
+      </button>
+  </div>
+  <div class="ui active fade reveal">
+    <div id="wirteahead_results" class="hidden content"></div>
+    <!-- <div id="linggle_results"></div> -->
+    <table id="linggle_area" cellspacing="0" cellpadding="0" class="ui very compact large orange selectable unstackable table visible content">
+      <thead>
+          <tr>
+              <th class="ten wide">N-gram</th>
+              <th class="one wide">percent</th>
+              <th class="one wide">count</th>
+              <th class="one wide">example</th>
+          </tr>
+      </thead>
+      <tbody id="linggle_results"></tbody>
+    </table>
+  </div>
+  <!-- js  -->
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/index.js"></script>
+</body>
+</html>

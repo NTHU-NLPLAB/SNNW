@@ -2,7 +2,9 @@ from flask import Flask, jsonify, render_template
 import requests
 import urllib
 import bs4
+
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 
 @app.route("/")
@@ -26,4 +28,4 @@ def writeaheadit(query):
     return grammarPatternBlock
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
