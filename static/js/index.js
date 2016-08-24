@@ -23,6 +23,9 @@ $('#input').on('input', function() {
     }
 });
 
+$('.ui.modal')
+    .modal('attach events', '#help-btn', 'show');
+
 function resetAutoSearchTimer(ms) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(search, ms);
@@ -68,7 +71,7 @@ function search_linggle(query) {
 
 
     }
-    linggle.open('GET', '/linggle/' + query, true);
+    linggle.open('GET', '/linggle/' + encodeURIComponent(query), true);
     linggle.send();
     return linggle;
 }
@@ -93,7 +96,7 @@ function search_writeahead(query) {
 
 
     }
-    writeahead.open('GET', '/writeahead/' + query, true);
+    writeahead.open('GET', '/writeahead/' + encodeURIComponent(query), true);
     writeahead.send();
     return writeahead;
 }
@@ -122,7 +125,7 @@ function search_rephraser(query) {
 
 
     }
-    rephraser.open('GET', '/rephraser/' + query, true);
+    rephraser.open('GET', '/rephraser/' + encodeURIComponent(query), true);
     rephraser.send();
     $('#rephraser_area').addClass("loading");
     return rephraser;
