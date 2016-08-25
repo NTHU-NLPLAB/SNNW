@@ -175,6 +175,11 @@ function renderRephraserResult(data) {
                 '</td>' +
                 '<td>' + element[2] + '%</td>' +
                 '<td>' + element[1] + '</td>' +
+                '<td class="center aligned">' +
+                '<button class="ui icon button">' +
+                '<i class="icon plus"></i>' +
+                '</button>' +
+                '</td>' +
                 '</tr>';
         });
     }

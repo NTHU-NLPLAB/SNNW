@@ -1,0 +1,101 @@
+<div class="ui modal">
+    <i class="close icon"></i>
+    <div class="ui top attached tabular menu">
+        <a class="item active" data-tab="help-en">Help</a>
+        <a class="item" data-tab="help-zh">幫助</a>
+        <!-- <a class="item" data-tab="contact">Contact</a> -->
+    </div>
+
+    <div class="ui bottom attached tab segment active" data-tab="help-en">
+
+        <div class="ui divided selection list">
+            <div class="item">
+                <div class="ui horizontal label large">*
+                    <div class="detail">asterisk | match zero or more words</div></div>
+                [ play * role ] --> [ play a role ] and [ play an important role ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">_
+                    <div class="detail">understroke | match any word</div></div>
+                    [ listen _ music ] --> [ listen to music ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">~ TERM
+                    <div class="detail">tilde | search for the similar words of TERM</div></div>
+                    [ ~reliable person ] --> [ trustworthy person ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">? TERM
+                    <div class="detail">question mark | search for TERM optionally</div></div>
+                    [ listen ?to music ] --> [ listen to music ] or [ discuss ?prep. it ] --> [ discuss it ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">TERM1 / TERM2
+                    <div class="detail">slash | either TERM1 or TERM2</div></div>
+                    [ go in/to school ] --> [ go to school ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">pos
+                    <div class="detail">part-of-speech | search for word with specific pos tag</div></div>
+                    [ v. a report ] --> [ submit a report ]<br /><br />
+                    <a class="ui basic label">v. (verb)</a>
+                    <a class="ui basic label">n. (noun)</a>
+                    <a class="ui basic label">adj. (adjective)</a>
+                    <a class="ui basic label">adv. (adverb)</a>
+                    <a class="ui basic label">prep. (preposition)</a>
+                    <a class="ui basic label">det. (determiner)</a>
+                    <a class="ui basic label">conj. (conjunction)</a>
+                    <a class="ui basic label">pron. (pronoun)</a>
+                    <br /><br />remember to keep a dot(.) after each pos tag
+                    </div>
+            <div class="item">
+                <div class="ui horizontal label large orange">NOTE
+                    </div>the maximum number of words in a query is 5</div>
+        </div>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="help-zh">
+        <div class="ui divided selection list">
+            <div class="item">
+                <div class="ui horizontal label large">*
+                    <div class="detail">星號 | 查詢任意零到多個詞</div></div>
+                [ play * role ] --> [ play a role ] 及 [ play an important role ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">_
+                    <div class="detail">底線 | 查詢任意一個詞</div></div>
+                    [ listen _ music ] --> [ listen to music ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">~ TERM
+                    <div class="detail">波浪號 | 查詢同義詞</div></div>
+                    [ ~reliable person ] --> [ trustworthy person ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">? TERM
+                    <div class="detail">問號 | 查詢是否需要特定詞</div></div>
+                    [ listen ?to music ] --> [ listen to music ] 或 [ discuss ?prep. it ] --> [ discuss it ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">TERM1 / TERM2
+                    <div class="detail">斜線 | 查詢何者較佳</div></div>
+                    [ go in/to school ] --> [ go to school ]</div>
+            <div class="item">
+                <div class="ui horizontal label large">pos
+                    <div class="detail">詞性 | 使用詞性查詢任意詞</div></div>
+                    [ v. a report ] --> [ submit a report ]<br /><br />
+                    <a class="ui basic label">v. (動詞)</a>
+                    <a class="ui basic label">n. (名詞)</a>
+                    <a class="ui basic label">adj. (形容詞)</a>
+                    <a class="ui basic label">adv. (副詞)</a>
+                    <a class="ui basic label">prep. (介系詞)</a>
+                    <a class="ui basic label">det. (冠詞)</a>
+                    <a class="ui basic label">conj. (連接詞)</a>
+                    <a class="ui basic label">pron. (代名詞)</a>
+                    <br /><br />別忘了每個pos tag的後面都要記得加上點(.)
+                    </div>
+            <div class="item">
+                <div class="ui horizontal label large orange">注意
+                    </div>每次最多查詢五個詞</div>
+        </div>
+    </div>
+    <!-- <div class="ui bottom attached tab segment" data-tab="contact">
+        <a href="https://www.facebook.com/linggle/" target="_blank"><i class="huge facebook square icon link" ></i></a>
+    </div> -->
+</div>
+
+<script type="text/javascript">
+    $('.menu .item')
+        .tab()
+    ;
+</script>
