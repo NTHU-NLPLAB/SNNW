@@ -13,18 +13,18 @@ linggle_regex = /_|~|#\d+|\?|\*|\/|(v|n|adj|adv|prep|det|conj|pron|interj)\./
   //     search(input.value)
   // };
 
+$('.ui.modal')
+    .modal('attach events', '#help-btn', 'show');
+
 $('#input').on('input', function() {
     var query = this.value.trim();
     if (query !== '' && query !== current_query) {
         $('#search_bar').addClass("loading");
-        current_query = query
-        resetAutoSearchTimer(800);
-        // search(query);
+        current_query = query;
+        resetAutoSearchTimer(query.match(linggle_regex) ? 100:800);
+        // search();
     }
 });
-
-$('.ui.modal')
-    .modal('attach events', '#help-btn', 'show');
 
 function resetAutoSearchTimer(ms) {
     clearTimeout(timeoutId);
@@ -71,7 +71,7 @@ function search_linggle(query) {
 
 
     }
-    linggle.open('GET', '/linggle/' + encodeURIComponent(query), true);
+    linggle.open('GET', '/linggle/' + encodeURIComponent(query).replace(/%2F/g, "@"), true);
     linggle.send();
     return linggle;
 }
