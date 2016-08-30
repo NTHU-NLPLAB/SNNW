@@ -69,7 +69,6 @@ function search_linggle(query) {
             }
         }
 
-
     }
     linggle.open('GET', '/linggle/' + encodeURIComponent(query).replace(/%2F/g, "@"), true);
     linggle.send();
