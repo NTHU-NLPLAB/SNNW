@@ -1,7 +1,7 @@
-from flask import Flask, jsonify, render_template, request
-import requests
 import urllib
 import bs4
+import requests
+from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -42,6 +42,13 @@ def rephraseit(query):
     url = 'http://ironman.nlpweb.org:13142/get_paraphrases/{}'.format(urllib.quote(query, safe=''))
     r = requests.get(url)
     return jsonify(r.json())
+
+
+@app.route("/example/<resource>/<query>")
+def get_example(resource, query):
+    url = 'http://ironman.nlpweb.org:3440/api/{}/{}'.format(resource, query)
+    examples = requests.get(url).json()
+    return jsonify({'query': query, 'resource': resource, 'examples': examples})
 
 if __name__ == "__main__":
     app.run(debug=True)
