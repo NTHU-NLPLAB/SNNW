@@ -64,6 +64,15 @@ function search_linggle(query) {
 
                 linggle_results.innerHTML = renderLinggleResult(results);
                 $('.ui.bottom.red.attached.progress').progress();
+                $('.example_btn').on('click', function() {
+                    var query = $(this).parent().parent().find('td:first').text().replace(/\s+/g, " ").trim()
+                    $(this).children('i').toggleClass('minus')
+                    $(this).parent().parent().find('~ .content:first').toggle();
+                    var test = $('tr.content[attr="' + query + '"] .ui.segment p')
+                    if(test.length == 0) {
+                        search_example(query)
+                    }
+                })
             } else {
                 console.log('An error occurred during your linggle: ' + this.status + ' ' + this.statusText);
             }
@@ -117,6 +126,15 @@ function search_rephraser(query) {
 
                 rephraser_results.innerHTML = renderRephraserResult(results);
                 $('.ui.bottom.blue.attached.progress').progress();
+                $('.example_btn').on('click', function() {
+                    var query = $(this).parent().parent().find('td:first').text().replace(/\s+/g, " ").trim()
+                    $(this).children('i').toggleClass('minus')
+                    $(this).parent().parent().find('~ .content:first').toggle();
+                    var test = $('tr.content[attr="' + query + '"] .ui.segment p')
+                    if(test.length == 0) {
+                        search_example(query)
+                    }
+                })
             } else {
                 console.log('An error occurred during your linggle: ' + this.status + ' ' + this.statusText);
             }
@@ -130,9 +148,36 @@ function search_rephraser(query) {
     return rephraser;
 }
 
+function search_example(query) {
+    var example = new XMLHttpRequest();
+    example.onreadystatechange = function() {
+        if (this.readyState === 4) {
+
+            if (this.status === 200) {
+                var result = JSON.parse(this.response);
+                // var result_content = $('tr.content[attr="' + result.query + '"] .ui.segment');
+                var htmlFrag = ''
+                result.examples.forEach(function(example) {
+                    htmlFrag += '<p>' + example + '</p>';
+                });
+                $('tr.content[attr="' + result.query + '"] .ui.segment').html(htmlFrag);
+                // example_area.find('.example_result').removeClass("loading");
+            } else {
+                console.log('An error occurred during your Example: ' + this.status + ' ' + this.statusText);
+            }
+        }
+
+
+    }
+    example.open('GET', '/example/nyt/' + encodeURIComponent(query), true);
+    example.send();
+    return example;
+}
+
 function showResult(blockid) {
-    $('#result_area').children(':not(#' + blockid + ')').addClass('visible').removeClass('hidden').end()
-        .children('#' + blockid).addClass('hidden').removeClass('visible')
+    // $('#result_area').children(':not(#' + blockid + ')').addClass('visible').removeClass('hidden').hide().end()
+    //     .children('#' + blockid).addClass('hidden').removeClass('visible').show()
+    $('#result_area').children(':not(#' + blockid + ')').hide().end().children('#' + blockid).show()
 }
 
 function renderLinggleResult(data) {
@@ -140,19 +185,32 @@ function renderLinggleResult(data) {
     if (data.length !== 0) {
         html = '';
         data.forEach(function(element) {
+            var phrase = element.phrase.join(' ').replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim()
             html +=
-                '<tr>' +
+                '<tr class="title">' +
                 '<td>' + element.phrase.join(' ') +
                 '<div class="ui bottom red attached progress" data-percent="' + /[0-9]+/g.exec(element.percent)[0] + '">' +
                 '<div class="bar"></div>' +
                 '</div>' +
+
                 '</td>' +
                 '<td>' + element.percent + '</td>' +
                 '<td>' + element.count_str + '</td>' +
                 '<td class="center aligned">' +
-                '<button class="ui icon button">' +
-                '<i class="icon plus"></i>' +
+                '<button class="ui icon button example_btn">' +
+                    '<i class="icon plus"></i>' +
                 '</button>' +
+                '</td>' +
+                '</tr>' +
+                // example
+                '<tr class="content" attr="' + phrase + '" style="display:none;">' +
+                '<td colspan="4">' +
+                '<div class="ui segment">' +
+                '<div class="ui active inverted dimmer">' +
+                '<div class="ui text tiny loader">Loading</div>' +
+                '</div>' +
+                '<img class="ui wireframe image" style="width: 100%;" src="/static/img/short-paragraph.png">' +
+                '</div>' +
                 '</td>' +
                 '</tr>';
         });
@@ -175,9 +233,19 @@ function renderRephraserResult(data) {
                 '<td>' + element[2] + '%</td>' +
                 '<td>' + element[1] + '</td>' +
                 '<td class="center aligned">' +
-                '<button class="ui icon button">' +
+                '<button class="ui icon button example_btn">' +
                 '<i class="icon plus"></i>' +
                 '</button>' +
+                '</td>' +
+                // example
+                '<tr class="content" attr="' + element[0] + '" style="display:none;">' +
+                '<td colspan="4">' +
+                '<div class="ui segment">' +
+                '<div class="ui active inverted dimmer">' +
+                '<div class="ui text tiny loader">Loading</div>' +
+                '</div>' +
+                '<img class="ui wireframe image" style="width: 100%;" src="/static/img/short-paragraph.png">' +
+                '</div>' +
                 '</td>' +
                 '</tr>';
         });
