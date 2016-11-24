@@ -15,7 +15,8 @@ def index():
 
 @app.route("/linggle/<query>")
 def linggleit(query):
-    url = 'http://linggle.com/query/{}'.format(query)
+    # url = 'http://linggle.com/query/{}'.format(query)
+    url = 'http://ironman.nlpweb.org:9487/?search={}'.format(query)
     r = requests.get(url)
     return r.text
 
