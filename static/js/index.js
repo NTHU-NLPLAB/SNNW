@@ -169,7 +169,7 @@ function search_example(query) {
 
 
     }
-    example.open('GET', '/example/nyt/' + encodeURIComponent(query), true);
+    example.open('GET', '/example/news/' + encodeURIComponent(query), true);
     example.send();
     return example;
 }
